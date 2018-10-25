@@ -27,7 +27,6 @@
 
   /* Mobile Styles */
 @media only screen and (max-width: 500px) {
-    
     .infoCard {
       margin: 10px;
       text-align: -webkit-center;
