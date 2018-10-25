@@ -1,0 +1,54 @@
+.userPinBox {
+  display: flex;
+  flex-direction: row;
+  font-size: 15px;
+  width: 600px;
+  align-self: center;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+.userPinInput {
+  width: 500px;
+  height: 25px;
+  font-size: 14px;
+  padding: 8px;
+  background-color: #fff;
+  border: none;
+}
+
+.userPinInput:focus {
+  outline: none;
+}
+
+.submithButton {
+  width: 100px;
+  background-color: #4c4c4b;
+  border: 10px #4c4c4b;
+  color: white;
+  font-size: 15px;
+}
+:focus {
+  outline: none;
+}
+
+
+/* Mobile Styles */
+@media only screen and (max-width: 500px) {
+  .userPinBox {
+    width: 90vw;
+  }
+
+  .userPinInput {
+    width: 100vw;
+  }
+
+  .submithButton {
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+  }
+}

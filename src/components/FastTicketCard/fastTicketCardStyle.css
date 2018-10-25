@@ -1,0 +1,38 @@
+.fastTicketCard {
+  display: flex;
+  flex-direction: column;
+  background-color: #373737;
+  width: 300px;
+  height: 200px;
+  margin: 4px;
+}
+
+.fastTicketHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 15px;
+  margin: 10px;
+}
+
+.fastTicketElement {
+  text-align: center;
+  margin: 10px;
+}
+
+.fontSize-15 {
+  font-size: 15px;
+}
+
+.fontSize-20 {
+  font-size: 25px;
+}
+.whiteText {
+  color: #ffffff;
+  margin: 0px;
+}
+
+.greyText {
+  color: #656565;
+  margin: 0px;
+}

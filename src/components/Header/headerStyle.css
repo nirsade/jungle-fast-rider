@@ -1,0 +1,9 @@
+.appHeader {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    flex-shrink: 0;
+    font-size: 22px;
+    font-weight: 300;
+  }
