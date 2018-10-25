@@ -1,9 +1,11 @@
 import React from "react";
-import './infoCardStyle.css';
+import "./infoCardStyle.css";
 import iconsInfo from "../../icons/info";
 
 const InfoCard = props => {
-  const imageSource = require(`./../../icons/${props.name}-${props.color}-icon.png`);
+  const imageSource = require(`./../../icons/${props.name}-${
+    props.color
+  }-icon.png`);
   const info = iconsInfo[props.name];
 
   return (

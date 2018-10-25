@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-
 import "./mainStyle.css";
-
 import Header from "../../components/Header/header";
 import InfoCard from "../../components/InfoCard/infoCard";
 import UserPinBox from "../../components/UserPinBox/userPinBox";
 import RideCard from "../../components/RIdeCard/rideCard";
-
 import TOKEN from "./../../config";
 
 class Main extends Component {
@@ -15,11 +12,13 @@ class Main extends Component {
 
     this.state = {
       cards: [],
-      selectedCard: null
+      selectedRide: null,
     };
   }
 
   componentDidMount() {
+
+    // get all the avaiable rides
     fetch(
       `http://fast-rider.herokuapp.com/api/v1/rides?token=${TOKEN}&api_key=${TOKEN}`
     )
@@ -38,16 +37,36 @@ class Main extends Component {
 
   handleCardSelection(id) {
     this.setState({
-      selectedCard: id
+      selectedRide: id
     });
   }
 
   handleSubmit(pin) {
-    const rideId = this.state.selectedCard;
+    const {selectedRide} = this.state;
 
-    if (rideId === null) {
-      alert("you must select ride");
+    if (selectedRide === null) {
+      alert("You must select ride");
       return;
+    }
+
+    let date = new Date();
+
+    if (date.getHours() > 18 || date.getHours() < 9) {
+      alert("The fast rider service is close");
+      return;
+    }
+
+    let fastRiderUser = sessionStorage.getItem("fastRiderUser_" + pin) || null;
+
+    //create PIN checker
+    if (fastRiderUser) {
+      // this user already booked today
+      let hours = Number(fastRiderUser.substring(0, 2));
+      let minutes = Number(fastRiderUser.substring(3, 5));
+      if (!(hours < date.getHours() && minutes < date.getMinutes())) {
+        alert("This user already have a fast rider ticket");
+        return;
+      }
     }
 
     // post data to the server
@@ -56,26 +75,27 @@ class Main extends Component {
       headers: {
         "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
       },
-      body: `pin=${pin}&ride_id=${rideId}&token=${TOKEN}`
+      body: `pin=${pin}&ride_id=${selectedRide}&token=${TOKEN}`
     })
+      .then(res => res.json())
       .then(
-        res => res.json(),
+        result => {
+          if(result.code) {
+            alert(result.message)
+          } else {
+            sessionStorage.setItem("fastRiderUser_" + pin, result.return_time.substring(11, 16));
+            sessionStorage.setItem("lastFastRiderUserPin", pin)
+            this.props.onFinished(result);
+          }
+        },
         error => {
-          console.log(error);
           alert(error);
         }
-      )
-      .then(result => {
-        if (result.access_code) {
-          this.props.onFinished(result);
-        } else {
-          alert(result.message);
-        }
-      });
+      );
   }
 
   render() {
-    const { cards, selectedCard } = this.state;
+    const { cards, selectedRide } = this.state;
     return (
       <div className="mainContainer">
         <Header />
@@ -91,7 +111,7 @@ class Main extends Component {
               <RideCard
                 ride={card}
                 key={card.id}
-                active={selectedCard === card.id}
+                active={selectedRide === card.id}
                 onCardSelection={() => this.handleCardSelection(card.id)}
               />
             );
