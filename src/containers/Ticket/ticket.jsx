@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-
 import './ticketStyle.css'
-
 import Header from "../../components/Header/header";
 import InfoCard from "../../components/InfoCard/infoCard";
 import FastTicketCard from "../../components/FastTicketCard/fastTicketCard";

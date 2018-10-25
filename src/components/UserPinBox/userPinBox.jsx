@@ -6,14 +6,13 @@ class UserPinBox extends Component {
     super(props);
 
     this.state = {
-      input: sessionStorage.getItem("lastFastRiderUserPin") || ""
+      input: localStorage.getItem("lastFastRiderUserPin") || ""
     };
   }
 
   checkValidPinNumber(pin) {
     let pinArr = pin.split("-");
 
-    // check for the first part of the string
     if (pinArr[0] !== "JN") {
       return false;
     }
@@ -66,9 +65,8 @@ class UserPinBox extends Component {
       return;
     }
 
-    // check if the PIN is valid
     if (!this.checkValidPinNumber(input)) {
-      alert("PIN number is not valid");
+      alert("Invalid park ticket PIN number");
       return;
     }
 

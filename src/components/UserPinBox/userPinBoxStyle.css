@@ -12,9 +12,11 @@
   width: 500px;
   height: 25px;
   font-size: 14px;
-  padding: 8px;
+  padding: 10px;
   background-color: #fff;
   border: none;
+}::placeholder {
+  color: black;
 }
 
 .userPinInput:focus {

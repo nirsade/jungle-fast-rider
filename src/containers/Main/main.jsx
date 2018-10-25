@@ -12,12 +12,11 @@ class Main extends Component {
 
     this.state = {
       cards: [],
-      selectedRide: null,
+      selectedRide: null
     };
   }
 
   componentDidMount() {
-
     // get all the avaiable rides
     fetch(
       `http://fast-rider.herokuapp.com/api/v1/rides?token=${TOKEN}&api_key=${TOKEN}`
@@ -42,29 +41,25 @@ class Main extends Component {
   }
 
   handleSubmit(pin) {
-    const {selectedRide} = this.state;
+    const { selectedRide } = this.state;
+    let date = new Date();
+    let fastRiderUser = localStorage.getItem("fastRiderUser_" + pin) || null;
 
     if (selectedRide === null) {
       alert("You must select ride");
       return;
     }
 
-    let date = new Date();
-
     if (date.getHours() > 18 || date.getHours() < 9) {
-      alert("The fast rider service is close");
+      alert("Cannot assign FastRider tickets outside of working hours");
       return;
     }
 
-    let fastRiderUser = sessionStorage.getItem("fastRiderUser_" + pin) || null;
-
-    //create PIN checker
     if (fastRiderUser) {
-      // this user already booked today
       let hours = Number(fastRiderUser.substring(0, 2));
       let minutes = Number(fastRiderUser.substring(3, 5));
       if (!(hours < date.getHours() && minutes < date.getMinutes())) {
-        alert("This user already have a fast rider ticket");
+        alert("Only one FastRider ticket can be held at any given time");
         return;
       }
     }
@@ -80,11 +75,14 @@ class Main extends Component {
       .then(res => res.json())
       .then(
         result => {
-          if(result.code) {
-            alert(result.message)
+          if (result.code) {
+            alert(result.message);
           } else {
-            sessionStorage.setItem("fastRiderUser_" + pin, result.return_time.substring(11, 16));
-            sessionStorage.setItem("lastFastRiderUserPin", pin)
+            localStorage.setItem(
+              "fastRiderUser_" + pin,
+              result.return_time.substring(11, 16)
+            );
+            localStorage.setItem("lastFastRiderUserPin", pin);
             this.props.onFinished(result);
           }
         },

@@ -9,7 +9,8 @@
 
 .rideCardGreyText {
   color: #656565;
-  font-size: 10px;
+  margin-bottom: 3px;
+  font-size: 14px;
 }
 
 .rideCardHeaderText {
@@ -19,7 +20,9 @@
 
 .rideCardWhiteText {
   color: white;
-  font-size: 18px;
+  font-size: 20px;
+  padding: 5px;
+  margin: 0px;
   text-align: center;
 }
 
@@ -27,6 +30,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .rideCardFooterElement {
