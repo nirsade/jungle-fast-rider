@@ -11,7 +11,7 @@ class Main extends Component {
     super(props);
 
     this.state = {
-      cards: [],
+      rides: [],
       selectedRide: null
     };
   }
@@ -25,7 +25,7 @@ class Main extends Component {
       .then(
         result => {
           this.setState({
-            cards: result
+            rides: result
           });
         },
         error => {
@@ -93,7 +93,7 @@ class Main extends Component {
   }
 
   render() {
-    const { cards, selectedRide } = this.state;
+    const { rides, selectedRide } = this.state;
     return (
       <div className="mainContainer">
         <Header />
@@ -104,13 +104,13 @@ class Main extends Component {
         </div>
         <UserPinBox onSubmit={pin => this.handleSubmit(pin)} />
         <div className="rideCardsContainer">
-          {cards.map(card => {
+          {rides.filter(ride => ride.remaining_tickets > 0).map(ride => {
             return (
               <RideCard
-                ride={card}
-                key={card.id}
-                active={selectedRide === card.id}
-                onCardSelection={() => this.handleCardSelection(card.id)}
+                ride={ride}
+                key={ride.id}
+                active={selectedRide === ride.id}
+                onCardSelection={() => this.handleCardSelection(ride.id)}
               />
             );
           })}

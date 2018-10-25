@@ -9,7 +9,6 @@
 
 .rideCardGreyText {
   color: #656565;
-  margin-bottom: 3px;
   font-size: 14px;
 }
 
@@ -38,7 +37,7 @@
   display: flex;
   flex-direction: row;
   align-self: center;
-  margin: 5px;
+  margin: 3px;
 }
 
 .rideCardFooterIcon {
